@@ -1,5 +1,5 @@
-python-portable-helloworld
-=========================
+python-portable
+===============
 ### Setting up after cloning this repo
 1. installing Python using official installer (embed packages (e.g "python-3.10.7-embed-amd64.zip") does not working for development)
    1. select install `pip`
