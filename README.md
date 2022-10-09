@@ -10,6 +10,6 @@ python-portable
 1. fill in package name with version to `requirements.txt`
 2. `install-package.cmd`
 
-### Use this as a git submodule (just run below commands, implicit `%cd%` will take care)
+### Use this as a git submodule `git submodule add https://github.com/dirkarnez/python-portable.git` (just run below commands, implicit `%cd%` will take care)
 - `.\python-portable\run.cmd`
 - `.\python-portable\install-package.cmd`
