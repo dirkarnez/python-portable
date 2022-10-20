@@ -13,3 +13,7 @@ python-portable
 ### Use this as a git submodule `git submodule add https://github.com/dirkarnez/python-portable.git` (just run below commands, implicit `%cd%` will take care)
 - `.\python-portable\run.cmd`
 - `.\python-portable\install-package.cmd`
+
+
+### References
+- [4. Using Python on Windows — Python 3.10.8 documentation](https://docs.python.org/3/using/windows.html#installing-without-ui)
