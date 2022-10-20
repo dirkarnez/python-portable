@@ -1,0 +1,36 @@
+name: portable-python-release-actions-workflow
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'c*'
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: windows-2019
+    env:
+      targetZip: python-3.10.8-amd64-portable.zip
+    steps:
+    - name: curl python-3.10.8-amd64.exe
+      shell: cmd
+      run: cd /d ${{ github.workspace }} && curl https://www.python.org/ftp/python/3.10.8/python-3.10.8-amd64.exe -L --output python-3.10.8-amd64.exe
+
+    - name: set PATH, check mingw version, cmake generate, build and install
+      shell: cmd
+      run: python-3.10.8-amd64.exe /quiet TargetDir="${{ github.workspace }}\python-installation" InstallAllUsers=0 AssociateFiles=0 PrependPath=0 Include_tcltk=0 Include_test=0
+      
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        type: "zip"
+        directory: "${{ github.workspace }}/python-installation"
+        filename: "${{ env.targetZip }}"
+
+    - name: Release prebuilt
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "${{ github.workspace }}/python-installation/${{ env.targetZip }}"
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }}
