@@ -11,6 +11,7 @@ python-portable
 2. `install-package.cmd`
 
 ### Use this as a git submodule `git submodule add https://github.com/dirkarnez/python-portable.git` (just run below commands, implicit `%cd%` will take care)
+- `git submodule add https://github.com/dirkarnez/python-portable.git`
 - `.\python-portable\run.cmd`
 - `.\python-portable\install-package.cmd`
 
