@@ -11,11 +11,11 @@ jobs:
     name: Create Release
     runs-on: windows-2019
     env:
-      targetZip: python-3.7.9-amd64-portable.zip
+      targetZip: python-3.8.10-amd64-portable.zip
     steps:
-    - name: curl python-3.7.9-amd64.exe
+    - name: curl python-3.8.10-amd64.exe
       shell: cmd
-      run: cd /d ${{ github.workspace }} && curl https://www.python.org/ftp/python/3.7.9/python-3.7.9-amd64.exe -L --output installer.exe
+      run: cd /d ${{ github.workspace }} && curl https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe -L --output installer.exe
 
     - name: set PATH, check mingw version, cmake generate, build and install
       shell: cmd
