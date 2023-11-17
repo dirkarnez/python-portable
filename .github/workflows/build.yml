@@ -19,7 +19,7 @@ jobs:
 
     - name: set PATH, check mingw version, cmake generate, build and install
       shell: cmd
-      run: installer.exe /quiet TargetDir="${{ github.workspace }}\python-installation" InstallAllUsers=0 AssociateFiles=0 PrependPath=0 Include_tcltk=0 Include_test=0
+      run: installer.exe /quiet TargetDir="${{ github.workspace }}\python-installation" InstallAllUsers=0 AssociateFiles=0 PrependPath=0 Include_tcltk=1 Include_test=0
       
     - name: Archive Release
       uses: thedoctor0/zip-release@master
