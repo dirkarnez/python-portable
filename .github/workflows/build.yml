@@ -9,43 +9,28 @@ on:
 jobs:
   build:
     name: Create Release
-    runs-on: windows-2019
+    runs-on: windows-latest
     env:
-      targetZip: python-2.7.13-amd64-portable.zip
+      targetZip: python-3.10.8-amd64-portable.zip
     steps:
-#     - name: curl python-3.8.10-amd64.exe
-#       shell: cmd
-#       run: curl https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe -L --output installer.exe
-
-    - name: lessmsi 
+    - name: curl python-3.10.8-amd64.exe
       shell: cmd
-      run: | 
-        curl https://github.com/activescott/lessmsi/releases/download/v1.10.0/lessmsi-v1.10.0.zip -L --output lessmsi.zip &&^
-        7z.exe x lessmsi.zip -o"lessmsi"
+      run: curl https://www.python.org/ftp/python/3.10.8/python-3.10.8-amd64.exe -L --output installer.exe
 
-    - name: curl python-2.7.13.amd64.msi
+    - name: set PATH, check mingw version, cmake generate, build and install
       shell: cmd
-      run: curl https://www.python.org/ftp/python/2.7.13/python-2.7.13.amd64.msi -L --output installer.msi
-
-#     - name: set PATH, check mingw version, cmake generate, build and install
-#       shell: cmd
-#       run: installer.exe /quiet TargetDir="${{ github.workspace }}\python-installation" InstallAllUsers=0 AssociateFiles=0 PrependPath=0 Include_tcltk=0 Include_test=0
-      
-    - name: uncompress iTunes64.msi
-      shell: cmd
-      run: |
-        .\lessmsi\lessmsi.exe x "installer.msi" "${{ github.workspace }}\python-installation\"
+      run: installer.exe /quiet TargetDir="${{ github.workspace }}\python-installation" InstallAllUsers=0 AssociateFiles=0 PrependPath=0 Include_tcltk=0 Include_test=0
       
     - name: Archive Release
       uses: thedoctor0/zip-release@master
       with:
         type: "zip"
-        directory: "python-installation/SourceDir"
+        directory: "${{ github.workspace }}/python-installation"
         filename: "${{ env.targetZip }}"
 
     - name: Release prebuilt
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "python-installation/SourceDir/${{ env.targetZip }}"
+        artifacts: "${{ github.workspace }}/python-installation/${{ env.targetZip }}"
         allowUpdates: true
         token: ${{ secrets.GITHUB_TOKEN }}
