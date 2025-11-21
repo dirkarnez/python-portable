@@ -11,11 +11,11 @@ jobs:
     name: Create Release
     runs-on: windows-latest
     env:
-      targetZip: python-3.10.8-amd64-portable.zip
+      version: 3.13.9
     steps:
-    - name: curl python-3.10.8-amd64.exe
+    - name: curl python installer
       shell: cmd
-      run: curl https://www.python.org/ftp/python/3.10.8/python-3.10.8-amd64.exe -L --output installer.exe
+      run: curl https://www.python.org/ftp/python/${{ env.version }}/python-${{ env.version }}-amd64.exe -L --output installer.exe
 
     - name: set PATH, check mingw version, cmake generate, build and install
       shell: cmd
@@ -26,11 +26,11 @@ jobs:
       with:
         type: "zip"
         directory: "${{ github.workspace }}/python-installation"
-        filename: "${{ env.targetZip }}"
+        filename: "python-${{ env.version }}-amd64-portable.zip"
 
     - name: Release prebuilt
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "${{ github.workspace }}/python-installation/${{ env.targetZip }}"
+        artifacts: "${{ github.workspace }}/python-installation/python-${{ env.version }}-amd64-portable.zip"
         allowUpdates: true
         token: ${{ secrets.GITHUB_TOKEN }}
